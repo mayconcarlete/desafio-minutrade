@@ -1,8 +1,4 @@
-import { LengthSize } from 'src/validations/length-size'
-import { MinValue } from 'src/validations/min-value'
-import { IsANumber } from 'src/validations/is-a-number'
-import { RequiredFields } from 'src/validations/required-fields'
-import { ValidatorComposite } from 'src/validations/validator-composite'
+import { MinValue , LengthSize , IsANumber , RequiredFields , ValidatorComposite } from '@validations/index'
 
 export const makeCreateProductValidator = (): ValidatorComposite => {
   const validators = []
