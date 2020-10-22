@@ -40,7 +40,7 @@ describe('CreateProduct', () => {
     const { sut, mockLoadProductByName } = makeSut()
     const mockLoadProductByNameSpy = jest.spyOn(mockLoadProductByName, 'loadByName')
     await sut.create(data)
-    expect(mockLoadProductByNameSpy).toHaveBeenCalledWith('any_name')
+    expect(mockLoadProductByNameSpy).toHaveBeenCalledWith('ANY_NAME')
   })
   test('Should throw if load throws', async () => {
     const { sut, mockLoadProductByName } = makeSut()
