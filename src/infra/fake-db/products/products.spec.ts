@@ -1,5 +1,10 @@
+import { TProduct } from '@domain/products/models/products'
 import { FakeProductsDb } from './products'
 
+const validProduct: TProduct = {
+  name: 'VALID_PRODUCT',
+  price: 123
+}
 type SutTypes = {
   sut: FakeProductsDb
 }
@@ -17,5 +22,10 @@ describe('FakeProductsDb', () => {
     const { sut } = makeSut()
     const result = await sut.loadByName('CACHORRO')
     expect(result).toEqual({ name: 'CACHORRO', price: 100 })
+  })
+  test('Should add a product in DB', async () => {
+    const { sut } = makeSut()
+    const result = await sut.add(validProduct)
+    expect(result).toEqual({ name: 'VALID_PRODUCT', price: 123 })
   })
 })
