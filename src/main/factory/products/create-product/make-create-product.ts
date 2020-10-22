@@ -1,4 +1,4 @@
-import { CreateProduct } from '@data/products/usecases/create-product'
+import { CreateProduct } from '@data/products/usecases/create-product/create-product'
 import { FakeProductsDb } from '@infra/fake-db/products/products'
 import { CreateProductController } from '@presentation/controllers/products/create-product'
 import { makeCreateProductValidator } from './make-create-product-validators'
