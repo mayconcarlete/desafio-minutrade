@@ -30,4 +30,8 @@ describe('POST - Create a product', () => {
     const result = await supertest(app).post('/api/v1/products').send({ name: 'CACHORRO', price: 100 })
     expect(result.body).toEqual('Invalid param: Product already exists')
   })
+  test('Should create a product', async () => {
+    const result = await supertest(app).post('/api/v1/products').send({ name: 'valid_name', price: 10 })
+    expect(result.body).toEqual({ name: 'VALID_NAME', price: 10 })
+  })
 })
