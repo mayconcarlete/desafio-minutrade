@@ -31,4 +31,13 @@ describe('CreateProduct', () => {
     await sut.create(data)
     expect(mockLoadProductByNameSpy).toHaveBeenCalledWith('any_name')
   })
+  test('Should throw if load throws', async () => {
+    const { sut, mockLoadProductByName } = makeSut()
+    jest.spyOn(mockLoadProductByName, 'load').mockImplementationOnce(async () => {
+      return new Promise(() => {
+        throw new Error('load product throws')
+      })
+    })
+    await expect(sut.create(data)).rejects.toThrow()
+  })
 })
