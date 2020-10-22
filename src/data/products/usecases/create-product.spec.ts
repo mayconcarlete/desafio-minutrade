@@ -72,9 +72,9 @@ describe('CreateProduct', () => {
     })
     await expect(sut.create(data)).rejects.toThrow()
   })
-  // test('should return a new product if they dont exists in DB', async () => {
-  //   const { sut } = makeSut()
-  //   const result = await sut.create(data)
-  //   expect(result).toEqual({ name: 'valid_product', price: 123 })
-  // })
+  test('should return a new product in success', async () => {
+    const { sut } = makeSut()
+    const result = await sut.create(data)
+    expect(result).toEqual({ name: 'valid_product', price: 123 })
+  })
 })
