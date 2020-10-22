@@ -28,4 +28,9 @@ describe('FakeProductsDb', () => {
     const result = await sut.add(validProduct)
     expect(result).toEqual({ name: 'VALID_PRODUCT', price: 123 })
   })
+  test('Should return an array of products names when loadNames are called', async () => {
+    const { sut } = makeSut()
+    const result = await sut.loadNames()
+    expect(result).toEqual(['CACHORRO', 'GATO', 'GALINHA'])
+  })
 })
