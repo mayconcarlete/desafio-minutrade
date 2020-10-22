@@ -4,11 +4,11 @@ import { ILoadProductByNameAdapter } from '../protocols/load-product-by-name'
 import { CreateProduct } from './create-product'
 
 const data: TProduct = {
-  name: 'any_name',
+  name: 'any name',
   price: 123
 }
 const dataResponse: TProduct = {
-  name: 'valid_product',
+  name: 'VALID PRODUCT',
   price: 123
 }
 class MockAddProduct implements ICreateProductAdapter {
@@ -40,7 +40,7 @@ describe('CreateProduct', () => {
     const { sut, mockLoadProductByName } = makeSut()
     const mockLoadProductByNameSpy = jest.spyOn(mockLoadProductByName, 'loadByName')
     await sut.create(data)
-    expect(mockLoadProductByNameSpy).toHaveBeenCalledWith('ANY_NAME')
+    expect(mockLoadProductByNameSpy).toHaveBeenCalledWith('ANY NAME')
   })
   test('Should throw if load throws', async () => {
     const { sut, mockLoadProductByName } = makeSut()
@@ -75,6 +75,6 @@ describe('CreateProduct', () => {
   test('should return a new product in success', async () => {
     const { sut } = makeSut()
     const result = await sut.create(data)
-    expect(result).toEqual({ name: 'valid_product', price: 123 })
+    expect(result).toEqual({ name: 'VALID PRODUCT', price: 123 })
   })
 })
