@@ -14,6 +14,10 @@ describe('POST - Create a product', () => {
     const result = await supertest(app).post('/api/v1/products').send({ name: 'ga', price: 10 })
     expect(result.body).toEqual('Invalid Length Size: name')
   })
+  test('Should return 400 if length of name are bigger than max characters', async () => {
+    const result = await supertest(app).post('/api/v1/products').send({ name: 'test_valid_bigger_size_length', price: 10 })
+    expect(result.body).toEqual('Invalid Length Size: name')
+  })
   test('Should return 400 if price is not a number', async () => {
     const result = await supertest(app).post('/api/v1/products').send({ name: 'valid_name', price: 'invalid' })
     expect(result.body).toEqual('price field is not a number')
