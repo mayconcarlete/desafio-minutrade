@@ -13,6 +13,6 @@ module.exports = {
     '.+\\.ts$': 'ts-jest'
   },
   moduleNameMapper: {
-
+    '@presentation/(.*)': '<rootDir>/src/presentation/$1'
   }
 }
