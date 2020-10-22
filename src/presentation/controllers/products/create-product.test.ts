@@ -10,4 +10,8 @@ describe('POST - Create a product', () => {
     const result = await supertest(app).post('/api/v1/products').send({ name: 'gato' })
     expect(result.body).toEqual('Missing param: price')
   })
+  test('Should return 400 if price is not a number', async () => {
+    const result = await supertest(app).post('/api/v1/products').send({ name: 'gato', price: 'invalid' })
+    expect(result.body).toEqual('price field is not a number')
+  })
 })
