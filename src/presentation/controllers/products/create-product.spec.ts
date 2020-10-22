@@ -41,7 +41,7 @@ describe('CreateProductController', () => {
     jest.spyOn(mockValidator, 'validate').mockReturnValueOnce(new Error('Any validation error'))
     const result = await sut.handle(req)
     expect(result.statusCode).toBe(400)
-    expect(result.body).toEqual(new Error('Any validation error'))
+    expect(result.body).toEqual(new Error('Any validation error').message)
   })
   test('Should return 500 if createProduct throws', async () => {
     const { sut, mockCreateProduct } = makeSut()
@@ -52,7 +52,7 @@ describe('CreateProductController', () => {
     })
     const result = await sut.handle(req)
     expect(result.statusCode).toBe(500)
-    expect(result.body).toEqual(new Error('Create Product throws'))
+    expect(result.body).toEqual(new Error('Create Product throws').message)
   })
   test('Should return 200 and a product if everything works well', async () => {
     const { sut } = makeSut()
