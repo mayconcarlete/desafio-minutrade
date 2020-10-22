@@ -13,8 +13,7 @@ export class LengthSize implements IValidator {
   }
 
   validate (body: any): Error | undefined {
-    body[this.fieldName] = body[this.fieldName].trim()
-    if (body[this.fieldName].length < this.min || body[this.fieldName].length > this.max) {
+    if (body[this.fieldName].trim().length < this.min || body[this.fieldName].trim().length > this.max) {
       return new LengthError(this.fieldName)
     }
     return undefined

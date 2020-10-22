@@ -16,12 +16,12 @@ describe('Length Size', () => {
   test('Should return an error if field are shorter then minimun', () => {
     const { sut } = makeSut()
     const body = {
-      test: '1s'
+      test: '33'
     }
     const result = sut.validate(body)
     expect(result).toEqual(new LengthError('test'))
   })
-  test('Should return an error if field are bigger then maximum', () => {
+  test('Should return an error if field are bigger than maximum', () => {
     const { sut } = makeSut()
     const body = {
       test: '1234567avgh'
