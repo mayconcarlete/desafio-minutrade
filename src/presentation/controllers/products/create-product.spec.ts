@@ -1,7 +1,7 @@
 import { THttpRequest } from '@presentation/models'
 import { IValidator } from '@presentation/protocols/validation-protocol'
-import { TProduct } from 'src/domain/products/model/products'
-import { ICreateProduct } from 'src/domain/products/protocols/create-product'
+import { TProduct } from '@domain/products/models/products'
+import { ICreateProduct } from '@domain/products/usecases/create-product'
 import { CreateProductController } from './create-product'
 
 const req: THttpRequest = {
