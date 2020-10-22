@@ -1,4 +1,4 @@
-import { IValidator } from '@src/presentation/protocols/validator'
+import { IValidator } from '@presentation/protocols/'
 import { LengthError } from './errors/length-error'
 
 export class LengthSize implements IValidator {
@@ -13,6 +13,7 @@ export class LengthSize implements IValidator {
   }
 
   validate (body: any): Error | undefined {
+    body[this.fieldName] = body[this.fieldName].trim()
     if (body[this.fieldName].length < this.min || body[this.fieldName].length > this.max) {
       return new LengthError(this.fieldName)
     }
