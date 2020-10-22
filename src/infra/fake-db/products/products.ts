@@ -21,6 +21,7 @@ export class FakeProductsDb implements ILoadProductByNameAdapter, ICreateProduct
   }
 
   async add (data: TProduct): Promise<TProduct | undefined> {
-    return new Promise(resolve => resolve(undefined))
+    this.products.push(data)
+    return new Promise(resolve => resolve(data))
   }
 }
