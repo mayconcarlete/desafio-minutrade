@@ -22,4 +22,8 @@ describe('POST - Create a product', () => {
     const result = await supertest(app).post('/api/v1/products').send({ name: 'valid_name', price: 'invalid' })
     expect(result.body).toEqual('price field is not a number')
   })
+  test('Should return 400 if price is smaller than minimum', async () => {
+    const result = await supertest(app).post('/api/v1/products').send({ name: 'valid_name', price: -1 })
+    expect(result.body).toEqual('price field is shorter than minimum')
+  })
 })
