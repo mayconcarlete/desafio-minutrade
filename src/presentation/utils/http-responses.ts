@@ -17,13 +17,13 @@ export const created = (data: any): THttpResponse => {
 export const badRequest = (error: Error): THttpResponse => {
   return {
     statusCode: 400,
-    body: error
+    body: error.message
   }
 }
 
 export const serverError = (error: Error): THttpResponse => {
   return {
     statusCode: 500,
-    body: error
+    body: error.message
   }
 }
