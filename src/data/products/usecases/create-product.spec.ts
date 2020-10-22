@@ -6,6 +6,10 @@ const data: TProduct = {
   name: 'any_name',
   price: 123
 }
+const dataResponse: TProduct = {
+  name: 'valid_product',
+  price: 123
+}
 
 class MockLoadByName implements ILoadProductByNameAdapter {
   async load (name: string): Promise<TProduct | undefined> {
@@ -39,5 +43,11 @@ describe('CreateProduct', () => {
       })
     })
     await expect(sut.create(data)).rejects.toThrow()
+  })
+  test('Should return undefined if they exists in DB', async () => {
+    const { sut, mockLoadProductByName } = makeSut()
+    jest.spyOn(mockLoadProductByName, 'load').mockReturnValueOnce(new Promise(resolve => resolve(dataResponse)))
+    const result = await sut.create(data)
+    expect(result).toBe(undefined)
   })
 })
