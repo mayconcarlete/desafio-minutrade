@@ -11,6 +11,9 @@ export class MinValue implements IValidator {
   }
 
   validate (input: any): Error | undefined {
+    if (input[this.fieldName] === 0 && this.minValue === 0) {
+      return new MinValueError(this.fieldName)
+    }
     if (input[this.fieldName] < this.minValue) {
       return new MinValueError(this.fieldName)
     }

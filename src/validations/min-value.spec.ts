@@ -9,7 +9,7 @@ const req: THttpRequest = {
 }
 const errorReq: THttpRequest = {
   body: {
-    price: -1
+    price: 0
   }
 }
 
