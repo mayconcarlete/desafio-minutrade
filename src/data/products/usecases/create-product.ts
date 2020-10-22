@@ -13,7 +13,7 @@ export class CreateProduct implements ICreateProduct {
   }
 
   async create (data: TProductParams): Promise<TProduct | undefined> {
-    const loadProduct = await this.loadProductByName.load(data.name)
+    const loadProduct = await this.loadProductByName.loadByName(data.name)
     if (!loadProduct) {
       const newProduct = await this.createProduct.add(data)
       if (newProduct) {

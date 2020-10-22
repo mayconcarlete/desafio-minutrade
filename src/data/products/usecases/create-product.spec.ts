@@ -17,7 +17,7 @@ class MockAddProduct implements ICreateProductAdapter {
   }
 }
 class MockLoadByName implements ILoadProductByNameAdapter {
-  async load (name: string): Promise<TProduct | undefined> {
+  async loadByName (name: string): Promise<TProduct | undefined> {
     return new Promise(resolve => resolve(undefined))
   }
 }
@@ -38,13 +38,13 @@ const makeSut = (): SutTypes => {
 describe('CreateProduct', () => {
   test('Should call load with correct params', async () => {
     const { sut, mockLoadProductByName } = makeSut()
-    const mockLoadProductByNameSpy = jest.spyOn(mockLoadProductByName, 'load')
+    const mockLoadProductByNameSpy = jest.spyOn(mockLoadProductByName, 'loadByName')
     await sut.create(data)
     expect(mockLoadProductByNameSpy).toHaveBeenCalledWith('any_name')
   })
   test('Should throw if load throws', async () => {
     const { sut, mockLoadProductByName } = makeSut()
-    jest.spyOn(mockLoadProductByName, 'load').mockImplementationOnce(async () => {
+    jest.spyOn(mockLoadProductByName, 'loadByName').mockImplementationOnce(async () => {
       return new Promise(() => {
         throw new Error('load product throws')
       })
@@ -53,7 +53,7 @@ describe('CreateProduct', () => {
   })
   test('Should return undefined if they exists in DB', async () => {
     const { sut, mockLoadProductByName } = makeSut()
-    jest.spyOn(mockLoadProductByName, 'load').mockReturnValueOnce(new Promise(resolve => resolve(dataResponse)))
+    jest.spyOn(mockLoadProductByName, 'loadByName').mockReturnValueOnce(new Promise(resolve => resolve(dataResponse)))
     const result = await sut.create(data)
     expect(result).toBe(undefined)
   })
