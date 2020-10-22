@@ -10,7 +10,6 @@ export class GetAllNames implements IGetAllNames {
 
   async getAllNames (): Promise<string[] | []> {
     const products = await this.loadNameProductsAdapter.loadNames()
-    // ordenar e devolver
-    return new Promise(resolve => resolve(products))
+    return new Promise(resolve => resolve(products.sort()))
   }
 }
