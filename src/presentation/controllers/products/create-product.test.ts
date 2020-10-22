@@ -26,4 +26,8 @@ describe('POST - Create a product', () => {
     const result = await supertest(app).post('/api/v1/products').send({ name: 'valid_name', price: -1 })
     expect(result.body).toEqual('price field is shorter than minimum')
   })
+  test('Should return 400 if product already exists in DB', async () => {
+    const result = await supertest(app).post('/api/v1/products').send({ name: 'CACHORRO', price: 100 })
+    expect(result.body).toEqual('Invalid param: Product already exists')
+  })
 })
