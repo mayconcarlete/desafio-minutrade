@@ -29,4 +29,9 @@ describe('GetAllNames', () => {
     })
     await expect(sut.getAllNames()).rejects.toThrow()
   })
+  test('Should return an array in ascending order', async () => {
+    const { sut } = makeSut()
+    const result = await sut.getAllNames()
+    expect(result).toEqual(['CACHORRO', 'GALINHA', 'GATO', 'ZEBRA'])
+  })
 })
