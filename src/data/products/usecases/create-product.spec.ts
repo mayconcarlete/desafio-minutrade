@@ -63,10 +63,15 @@ describe('CreateProduct', () => {
     await sut.create(data)
     expect(mockAddSpy).toHaveBeenCalledWith(data)
   })
-  // test('Should throw if add throws', async () => {
-  //   const { sut, mockAddProductAdapter } = makeSut()
-  //   jest.spyOn(mockAddProductAdapter, 'add').mock
-  // })
+  test('Should throw if add throws', async () => {
+    const { sut, mockAddProductAdapter } = makeSut()
+    jest.spyOn(mockAddProductAdapter, 'add').mockImplementationOnce(async () => {
+      return new Promise(() => {
+        throw new Error()
+      })
+    })
+    await expect(sut.create(data)).rejects.toThrow()
+  })
   // test('should return a new product if they dont exists in DB', async () => {
   //   const { sut } = makeSut()
   //   const result = await sut.create(data)
