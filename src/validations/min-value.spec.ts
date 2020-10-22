@@ -35,4 +35,9 @@ describe('MinValue', () => {
     const result = sut.validate(errorReq.body)
     expect(result).toEqual(new MinValueError('price'))
   })
+  test('Should return undefined if validation succeeds', () => {
+    const { sut } = makeSut()
+    const result = sut.validate(req.body)
+    expect(result).toBeFalsy()
+  })
 })
