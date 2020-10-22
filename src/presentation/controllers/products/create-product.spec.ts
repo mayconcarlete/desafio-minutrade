@@ -55,6 +55,9 @@ describe('CreateProductController', () => {
     expect(result.body).toEqual(new Error('Create Product throws'))
   })
   test('Should return 200 and a product if everything works well', async () => {
-
+    const { sut } = makeSut()
+    const result = await sut.handle(req)
+    expect(result.statusCode).toBe(201)
+    expect(result.body).toEqual({ name: 'valid_product', price: 99.9 })
   })
 })
