@@ -1,7 +1,7 @@
 import { THttpRequest, THttpResponse } from '@presentation/models/'
 import { IController, IValidator } from '@presentation/protocols/'
 import { badRequest, created, serverError } from '@presentation/utils/http-responses'
-import { ICreateProduct } from 'src/domain/products/protocols/create-product'
+import { ICreateProduct } from '@domain/products/usecases/create-product'
 
 export class CreateProductController implements IController {
   private readonly validators: IValidator
