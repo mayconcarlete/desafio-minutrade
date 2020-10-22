@@ -10,6 +10,9 @@ export class CreateProduct implements ICreateProduct {
 
   async create (data: TProductParams): Promise<TProduct | undefined> {
     const loadProduct = await this.loadProductByName.load(data.name)
-    return new Promise(resolve => resolve(loadProduct))
+    if (!loadProduct) {
+      return new Promise(resolve => resolve(loadProduct))
+    }
+    return undefined
   }
 }
