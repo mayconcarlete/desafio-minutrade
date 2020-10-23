@@ -1,13 +1,13 @@
 const request = require('request')
-const urlProductStock = "https://mt-node-stock-api.glitch.me/products"
-const express = require('express');
-const bodyParser = require("body-parser");
-const app = express();
+const urlProductStock = 'https://mt-node-stock-api.glitch.me/products'
+const express = require('express')
+const bodyParser = require('body-parser')
+const app = express()
 
-app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: true }));
+app.use(bodyParser.json())
+app.use(bodyParser.urlencoded({ extended: true }))
 
-let productsDB = [
+const productsDB = [
   { name: 'cachorro', price: 100 },
   { name: 'gato', price: 50 },
   { name: 'galinha', price: 25 }
@@ -16,36 +16,36 @@ let productsDB = [
 const buildProduct = (body) => {
   return {
     name: body.name,
-    price: Number.parseInt(body.price, 10),
+    price: Number.parseInt(body.price, 10)
   }
 }
 
-app.get("/products", function (req, res) {
+app.get('/products', function (req, res) {
   res.status(200).send(productsDB)
-});
+})
 
-app.get("/productsNames", function (req, res) {
+app.get('/productsNames', function (req, res) {
   res.status(200).send(productsDB)
-});
+})
 
-app.get("/products/:name", function (req, res) {
-  let product;
+app.get('/products/:name', function (req, res) {
+  let product
   productsDB.forEach(element => {
-    if (element.name === req.params.name){
-      product = element;
+    if (element.name === req.params.name) {
+      product = element
     }
-  });
+  })
   if (product) {
     res.status(200).send(product)
   } else {
     res.sendStatus(500)
   }
-});
+})
 
-app.post("/products", function (req, res) {
+app.post('/products', function (req, res) {
   const newProduct = buildProduct(req.body)
 
-  let product = productsDB.find(item => (item.name === newProduct.name))
+  const product = productsDB.find(item => (item.name === newProduct.name))
   if (product) {
     return res.sendStatus(500)
   }
@@ -59,13 +59,13 @@ app.post("/products", function (req, res) {
     return res.sendStatus(500)
   }
 
-  let data = {
+  const data = {
     name: req.body.name
   }
   request({
     url: urlProductStock,
     headers: {
-      'Content-Type': 'application/json',
+      'Content-Type': 'application/json'
     },
     body: data,
     method: 'POST',
@@ -77,14 +77,14 @@ app.post("/products", function (req, res) {
     productsDB.push(newProduct)
     res.status(201).send(newProduct)
   })
-});
+})
 
-app.put("/products/:name", function (req, res) {
-  let product = productsDB.find(item => (item.name === req.params.name))
+app.put('/products/:name', function (req, res) {
+  const product = productsDB.find(item => (item.name === req.params.name))
   if (!product) {
     return res.sendStatus(500)
   }
-  let newPrice = Number.parseInt(req.body.price, 10)
+  const newPrice = Number.parseInt(req.body.price, 10)
   if (isNaN(newPrice)) {
     return res.sendStatus(500)
   }
@@ -94,16 +94,15 @@ app.put("/products/:name", function (req, res) {
   product.price = newPrice
 
   res.status(200).send(product)
-});
+})
 
-
-app.delete("/products/:name", function (req, res) {
+app.delete('/products/:name', function (req, res) {
   res.sendStatus(200)
-});
+})
 
 var server = app.listen(3000, function () {
-  console.log("Listening on port %s", server.address().port);
-});
+  console.log('Listening on port %s', server.address().port)
+})
 
 module.exports = {
   buildProduct,
