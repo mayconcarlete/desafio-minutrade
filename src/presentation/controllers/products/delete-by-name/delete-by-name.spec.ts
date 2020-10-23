@@ -52,4 +52,25 @@ describe('DeleteByNameController', () => {
     expect(result.statusCode).toBe(404)
     expect(result.body).toEqual('Product was not found')
   })
+  test('Should return 500 if deleteProductByName throws', async () => {
+    const { sut, mockDeleteByName } = makeSut()
+    jest.spyOn(mockDeleteByName, 'deleteProduct').mockImplementationOnce(async () => {
+      return new Promise(() => {
+        throw new Error()
+      })
+    })
+    const result = await sut.handle({})
+    expect(result.statusCode).toBe(500)
+  })
+  test('Should return 200 and a product on success', async () => {
+    const { sut } = makeSut()
+    const req: THttpRequest = {
+      body: {
+        name: 'valid_product'
+      }
+    }
+    const result = await sut.handle(req)
+    expect(result.statusCode).toBe(200)
+    expect(result.body).toEqual({ name: 'DELETED_PRODUCT',price: 99 })
+  })
 })
