@@ -4,7 +4,7 @@ import { ValidatorComposite } from '@validations/index'
 
 export const makeCreateMultipleValidator = (): ValidatorComposite => {
   const validators: IValidator[] = []
-  const min = 0
+  const min = 1
   const max = 1000
   const arraySize = new ArraySize(min, max)
   validators.push(arraySize)
