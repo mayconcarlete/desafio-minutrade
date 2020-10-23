@@ -1,9 +1,12 @@
 import { IValidator } from '@presentation/protocols'
-import { RequiredFields , ValidatorComposite } from '@validations/index'
+import { ArraySize } from '@validations/array-size'
+import { ValidatorComposite } from '@validations/index'
 
 export const makeCreateMultipleValidator = (): ValidatorComposite => {
   const validators: IValidator[] = []
-  const requiredField = 'products'
-  validators.push(new RequiredFields(requiredField))
+  const min = 0
+  const max = 1000
+  const arraySize = new ArraySize(min, max)
+  validators.push(arraySize)
   return new ValidatorComposite(validators)
 }
