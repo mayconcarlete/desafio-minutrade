@@ -3,18 +3,8 @@ import { ICreateMultipleProducts } from '@domain/products/usecases/create-multip
 
 export class CreateMultipleProducts implements ICreateMultipleProducts {
   async createMultiples (productsList: TProduct[]): Promise<TProduct[]|[]> {
-    const removeSpaces = productsList.map(product => {
-      return {
-        name: product.name.trim(),
-        price: product.price
-      }
-    })
-    const passAllNamesToUpper = removeSpaces.map(product => {
-      return {
-        name: product.name.toUpperCase(),
-        price: product.price
-      }
-    })
+    const removeSpaces = productsList.map(product => ({ name: product.name.trim(), price: product.price }))
+    const passAllNamesToUpper = removeSpaces.map(product => ({ name: product.name.toUpperCase(), price: product.price }))
     return new Promise(resolve => resolve(passAllNamesToUpper))
   }
 }
