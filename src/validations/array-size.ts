@@ -10,7 +10,7 @@ export class ArraySize implements IValidator {
   }
 
   validate (input: any[]): Error | undefined {
-    if (input.length < this.min || input.length > this.max) {
+    if (input.length === undefined || input.length < this.min || input.length > this.max) {
       return new InvalidParamError('Invalid array size')
     }
   }
