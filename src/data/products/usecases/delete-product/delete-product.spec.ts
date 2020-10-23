@@ -41,4 +41,10 @@ describe('DeleteProduct', () => {
     await sut.deleteProduct('any_name')
     expect(deleteByNameSpy).toHaveBeenCalledWith('ANY_NAME')
   })
+  test('Should return undefined if deleteByName return undefined',async () => {
+    const { sut, deleteByNameAdapter } = makeSut()
+    jest.spyOn(deleteByNameAdapter, 'deleteByName').mockReturnValueOnce(new Promise(resolve => resolve(undefined)))
+    const result = await sut.deleteProduct('invalid_name')
+    expect(result).toBeFalsy()
+  })
 })
