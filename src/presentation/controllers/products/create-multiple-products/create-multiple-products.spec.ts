@@ -41,6 +41,16 @@ describe('CreateMultipleProductsController', () => {
     expect(result.statusCode).toBe(400)
     expect(result.body).toEqual(new InvalidParamError('Validator Fails').message)
   })
+  test('Should throw if createMultipleProducts throw', async () => {
+    const { sut, createMultipleProducts } = makeSut()
+    jest.spyOn(createMultipleProducts, 'createMultiples').mockImplementationOnce(async () => {
+      return new Promise(() => {
+        throw new Error()
+      })
+    })
+    const result = await sut.handle(req)
+    expect(result.statusCode).toBe(500)
+  })
   test('Should return an array of product on success', async () => {
     const { sut } = makeSut()
     const result = await sut.handle(req)
