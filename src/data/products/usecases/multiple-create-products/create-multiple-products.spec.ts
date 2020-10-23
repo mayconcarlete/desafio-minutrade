@@ -20,12 +20,16 @@ describe('CreateMultipleProducts', () => {
     const { sut } = makeSut()
     const result = await sut.createMultiples(data)
     expect(result[0].name).toEqual('ANY_NAME')
-    expect(result[1].name).toEqual('ANY_NAME')
   })
   test('Should pass all names to uppercase', async () => {
     const { sut } = makeSut()
     const result = await sut.createMultiples(data)
     expect(result[0].name).toEqual('ANY_NAME')
+    expect(result[0].name).toEqual('ANY_NAME')
+  })
+  test('Should remove duplicated products from array before send to DB', async () => {
+    const { sut } = makeSut()
+    const result = await sut.createMultiples(data)
     expect(result[0].name).toEqual('ANY_NAME')
   })
 })
