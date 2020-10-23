@@ -23,4 +23,9 @@ describe('ArraySize', () => {
     const result = sut.validate(reqError)
     expect(result).toEqual(new InvalidParamError('Invalid array size'))
   })
+  test('Should return undefined if validation succeeds', () => {
+    const { sut } = makeSut()
+    const result = sut.validate(req)
+    expect(result).toBeFalsy()
+  })
 })
