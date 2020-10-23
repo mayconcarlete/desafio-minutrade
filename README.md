@@ -10,5 +10,5 @@ To do list:
 - (x) Rota para criar produtos.
 - (x) Rota para buscar produtos por nome.
 - (x) Implementar a rota delete de forma correta.
-- ( ) Implementar a rota de múltiplos cadastros.
-- ( ) Melhorar código existente.
+- (x) Implementar a rota de múltiplos cadastros.
+- (x) Melhorar código existente.
