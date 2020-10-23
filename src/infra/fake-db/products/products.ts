@@ -49,6 +49,18 @@ export class FakeProductsDb implements
   }
 
   async addMultiples (data: TProduct[]): Promise<TProduct[]|[]> {
-    return new Promise(resolve => resolve(data))
+    let duplicated = false
+    for (const product of data) {
+      duplicated = false
+      for (const productDB of this.products) {
+        if (product.name === productDB.name) {
+          duplicated = true
+        }
+      }
+      if (!duplicated) {
+        this.products.push(product)
+      }
+    }
+    return new Promise(resolve => resolve(this.products))
   }
 }
