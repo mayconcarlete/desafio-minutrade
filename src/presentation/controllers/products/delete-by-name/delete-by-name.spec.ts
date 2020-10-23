@@ -40,4 +40,16 @@ describe('DeleteByNameController', () => {
     expect(result.statusCode).toBe(400)
     expect(result.body).toEqual('Some Validation Fails')
   })
+  test('Should return 404 if product was not found', async () => {
+    const { sut, mockDeleteByName } = makeSut()
+    jest.spyOn(mockDeleteByName, 'deleteProduct').mockReturnValueOnce(new Promise(resolve => resolve(undefined)))
+    const req: THttpRequest = {
+      body: {
+        name: 'not_found_product'
+      }
+    }
+    const result = await sut.handle(req)
+    expect(result.statusCode).toBe(404)
+    expect(result.body).toEqual('Product was not found')
+  })
 })
