@@ -14,12 +14,13 @@ export class DeleteByNameController implements IController {
   }
 
   async handle (req: THttpRequest): Promise<THttpResponse> {
+    const body = Object.assign({}, req.body, req.params)
     try {
-      const error = this.validators.validate(req.body)
+      const error = this.validators.validate(body)
       if (error) {
         return badRequest(error)
       }
-      const product = await this.deleteByNameData.deleteProduct(req.body.name)
+      const product = await this.deleteByNameData.deleteProduct(body.name)
       if (product) {
         return ok(product)
       }
