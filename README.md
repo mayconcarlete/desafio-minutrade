@@ -9,7 +9,6 @@ Instruções:
 To do list:
 - (x) Rota para criar produtos.
 - (x) Rota para buscar produtos por nome.
-- (x) Energia cair em pleno dia de entrega de desafio.
-- ( ) Implementar a rota delete de forma correta.
+- (x) Implementar a rota delete de forma correta.
 - ( ) Implementar a rota de múltiplos cadastros.
 - ( ) Melhorar código existente.
