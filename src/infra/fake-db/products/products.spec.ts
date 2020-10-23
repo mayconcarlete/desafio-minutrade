@@ -38,4 +38,10 @@ describe('FakeProductsDb', () => {
     const result = await sut.deleteByName('not_found_name')
     expect(result).toBeFalsy()
   })
+  test('Should return a product when deleteByName success', async () => {
+    const { sut } = makeSut()
+    const result = await sut.deleteByName('GALINHA')
+    expect(result).toEqual({ name: 'GALINHA', price: 25 })
+    expect(sut.products.length).toEqual(2)
+  })
 })
