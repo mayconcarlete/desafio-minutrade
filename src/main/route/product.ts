@@ -1,3 +1,4 @@
+import { makeDeleteProduct } from '@main/factory/products/delete-product/make-delete-product'
 import { makeGetAllNames } from '@main/factory/products/products-names-by-order/make-get-all-names'
 import { Router } from 'express'
 import { adapterRoute } from '../adapter/route-adapter'
@@ -6,4 +7,5 @@ import { makeCreateProduct } from '../factory/products/create-product/make-creat
 export default (app: Router): void => {
   app.post('/api/v1/products', adapterRoute(makeCreateProduct()))
   app.get('/api/v1/productsnames', adapterRoute(makeGetAllNames()))
+  app.delete('/api/v1/products/:name', adapterRoute(makeDeleteProduct()))
 }
