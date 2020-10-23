@@ -9,7 +9,12 @@ export class CreateMultipleProducts implements ICreateMultipleProducts {
         price: product.price
       }
     })
-
-    return new Promise(resolve => resolve(removeSpaces))
+    const passAllNamesToUpper = removeSpaces.map(product => {
+      return {
+        name: product.name.toUpperCase(),
+        price: product.price
+      }
+    })
+    return new Promise(resolve => resolve(passAllNamesToUpper))
   }
 }
