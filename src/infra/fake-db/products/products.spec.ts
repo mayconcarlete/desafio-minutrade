@@ -33,4 +33,9 @@ describe('FakeProductsDb', () => {
     const result = await sut.loadNames()
     expect(result).toEqual(['CACHORRO', 'GATO', 'GALINHA'])
   })
+  test('Should return undefined when product was not found', async () => {
+    const { sut } = makeSut()
+    const result = await sut.deleteByName('not_found_name')
+    expect(result).toBeFalsy()
+  })
 })
