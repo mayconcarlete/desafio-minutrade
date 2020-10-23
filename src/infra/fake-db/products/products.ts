@@ -1,3 +1,4 @@
+import { IDeleteByNameAdapter } from '@data/products/protocols/delete-product-by-name'
 import { ILoadProductsByNameAdapter } from '@data/products/protocols/load-all-products-by-name'
 import { TProduct } from '@domain/products/models/products'
 import { ICreateProductAdapter } from 'src/data/products/protocols/create-product'
@@ -6,7 +7,8 @@ import { ILoadProductByNameAdapter } from 'src/data/products/protocols/load-prod
 export class FakeProductsDb implements
   ILoadProductByNameAdapter,
   ICreateProductAdapter,
-  ILoadProductsByNameAdapter {
+  ILoadProductsByNameAdapter,
+  IDeleteByNameAdapter {
   products: TProduct[]
   constructor () {
     this.products = [
@@ -32,5 +34,15 @@ export class FakeProductsDb implements
   async loadNames (): Promise<string[] | []> {
     const arrayNames = this.products.map(product => product.name)
     return new Promise(resolve => resolve(arrayNames))
+  }
+
+  async deleteByName (name: string): Promise<TProduct | undefined> {
+    const index = this.products.findIndex(product => product.name === name)
+    if (index > -1) {
+      const productDeleted = this.products[index]
+      this.products.splice(index,1)
+      return productDeleted
+    }
+    return undefined
   }
 }
