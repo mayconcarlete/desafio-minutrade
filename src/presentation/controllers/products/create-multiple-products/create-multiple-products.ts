@@ -1,7 +1,7 @@
 import { ICreateMultipleProducts } from '@domain/products/usecases/create-multiple-products'
 import { THttpRequest, THttpResponse } from '@presentation/models'
 import { IController, IValidator } from '@presentation/protocols'
-import { badRequest, ok, serverError } from '@presentation/utils/http-responses'
+import { badRequest, created, serverError } from '@presentation/utils/http-responses'
 
 export class CreateMultipleProductsController implements IController {
   private readonly validators: IValidator
@@ -18,7 +18,7 @@ export class CreateMultipleProductsController implements IController {
         return badRequest(error)
       }
       const newProducts = await this.createMultipleProducts.createMultiples(req.body)
-      return ok(newProducts)
+      return created(newProducts)
     } catch (e) {
       return serverError(e)
     }
