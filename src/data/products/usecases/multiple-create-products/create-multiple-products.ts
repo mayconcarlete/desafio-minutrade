@@ -11,7 +11,14 @@ export class CreateMultipleProducts implements ICreateMultipleProducts {
 
   async createMultiples (productsList: TProduct[]): Promise<TProduct[]|[]> {
     const removeSpaces = productsList.map(product => ({ name: product.name.trim(), price: product.price }))
-    const passAllNamesToUpper = removeSpaces.map(product => ({ name: product.name.toUpperCase(), price: product.price }))
+
+    const removeLessThanFive = removeSpaces.filter(product =>
+      product.name.length > 4 &&
+      product.price > 0 &&
+      typeof (product.price) === 'number' &&
+      typeof (product.name) === 'string')
+
+    const passAllNamesToUpper = removeLessThanFive.map(product => ({ name: product.name.toUpperCase(), price: product.price }))
 
     const removedEqualElements: TProduct[] = []
     const arrayOfEqualsNames: string[] = []
