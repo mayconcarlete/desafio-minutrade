@@ -47,4 +47,9 @@ describe('DeleteProduct', () => {
     const result = await sut.deleteProduct('invalid_name')
     expect(result).toBeFalsy()
   })
+  test('Should return the product deleted', async () => {
+    const { sut } = makeSut()
+    const result = await sut.deleteProduct('cachorro')
+    expect(result).toEqual({ name: 'CACHORRO', price: 100 })
+  })
 })
