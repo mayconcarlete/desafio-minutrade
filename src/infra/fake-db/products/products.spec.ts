@@ -44,4 +44,11 @@ describe('FakeProductsDb', () => {
     expect(result).toEqual({ name: 'GALINHA', price: 25 })
     expect(sut.products.length).toEqual(2)
   })
+  test('Should return an array of single produts without duplicates', async () => {
+    const { sut } = makeSut()
+    const data = [{ name: 'CACHORRO', price: 100 }, { name: 'ANY_NAME', price: 50 }, { name: 'GALINHA', price: 25 }, { name: 'PAPAGAIO', price: 25 }]
+    const response = [{ name: 'CACHORRO', price: 100 }, { name: 'GATO', price: 50 }, { name: 'GALINHA', price: 25 },{ name: 'ANY_NAME', price: 50 }, { name: 'PAPAGAIO', price: 25 }]
+    const result = await sut.addMultiples(data)
+    expect(result).toEqual(response)
+  })
 })
