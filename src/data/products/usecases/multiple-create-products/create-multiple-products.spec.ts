@@ -63,4 +63,9 @@ describe('CreateMultipleProducts', () => {
     })
     await expect(sut.createMultiples(data)).rejects.toThrow()
   })
+  test('Should return an array of products in DB', async () => {
+    const { sut } = makeSut()
+    const result = await sut.createMultiples(data)
+    expect(result).toEqual(response)
+  })
 })
