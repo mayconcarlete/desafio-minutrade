@@ -21,6 +21,13 @@ export const badRequest = (error: Error): THttpResponse => {
   }
 }
 
+export const notFound = (error: Error): THttpResponse => {
+  return {
+    statusCode: 404,
+    body: error.message
+  }
+}
+
 export const serverError = (error: Error): THttpResponse => {
   return {
     statusCode: 500,
