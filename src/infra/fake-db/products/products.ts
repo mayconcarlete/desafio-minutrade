@@ -1,3 +1,4 @@
+import { ICreateMultipleProductsAdapter } from '@data/products/protocols/create-multiple-products'
 import { IDeleteByNameAdapter } from '@data/products/protocols/delete-product-by-name'
 import { ILoadProductsByNameAdapter } from '@data/products/protocols/load-all-products-by-name'
 import { TProduct } from '@domain/products/models/products'
@@ -8,7 +9,8 @@ export class FakeProductsDb implements
   ILoadProductByNameAdapter,
   ICreateProductAdapter,
   ILoadProductsByNameAdapter,
-  IDeleteByNameAdapter {
+  IDeleteByNameAdapter,
+  ICreateMultipleProductsAdapter {
   products: TProduct[]
   constructor () {
     this.products = [
@@ -44,5 +46,9 @@ export class FakeProductsDb implements
       return productDeleted
     }
     return undefined
+  }
+
+  async addMultiples (data: TProduct[]): Promise<TProduct[]|[]> {
+    return new Promise(resolve => resolve(data))
   }
 }
