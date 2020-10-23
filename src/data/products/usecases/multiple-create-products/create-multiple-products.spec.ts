@@ -54,4 +54,13 @@ describe('CreateMultipleProducts', () => {
     await sut.createMultiples(data)
     expect(createMultiplesAdapterSpy).toHaveBeenCalledWith([{ name: 'ANY_NAME', price: 1 }])
   })
+  test('Should throw if addMultiples throws', async () => {
+    const { sut, createMultiplesAdapter } = makeSut()
+    jest.spyOn(createMultiplesAdapter, 'addMultiples').mockImplementationOnce(async () => {
+      return new Promise(() => {
+        throw new Error()
+      })
+    })
+    await expect(sut.createMultiples(data)).rejects.toThrow()
+  })
 })
