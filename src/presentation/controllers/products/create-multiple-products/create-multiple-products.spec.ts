@@ -14,11 +14,11 @@ class MockValidator implements IValidator {
 const req: THttpRequest = {
   body: [{ name: 'any_name', price: 88 }]
 }
-const result: TProduct[] = [{ name: 'CAMELO',price: 66 },{ name: 'GIRAFA',price: 66 },{ name: 'ELEFANTE',price: 66 }]
+const response: TProduct[] = [{ name: 'CAMELO',price: 66 },{ name: 'GIRAFA',price: 66 },{ name: 'ELEFANTE',price: 66 }]
 
 class MockCreateMultipleProducts implements ICreateMultipleProducts {
   async createMultiples (data: TProduct[]): Promise<TProduct[] | []> {
-    return new Promise(resolve => resolve(result))
+    return new Promise(resolve => resolve(response))
   }
 }
 type SutTypes = {
@@ -34,11 +34,17 @@ const makeSut = (): SutTypes => {
   return { sut, validator,createMultipleProducts }
 }
 describe('CreateMultipleProductsController', () => {
-  test('Shoudl return 400 if validation fails', async () => {
+  test('Should return 400 if validation fails', async () => {
     const { sut, validator } = makeSut()
     jest.spyOn(validator, 'validate').mockReturnValueOnce(new InvalidParamError('Validator Fails'))
     const result = await sut.handle(req)
     expect(result.statusCode).toBe(400)
     expect(result.body).toEqual(new InvalidParamError('Validator Fails').message)
+  })
+  test('Should return an array of product on success', async () => {
+    const { sut } = makeSut()
+    const result = await sut.handle(req)
+    expect(result.statusCode).toBe(201)
+    expect(result.body).toEqual(response)
   })
 })
