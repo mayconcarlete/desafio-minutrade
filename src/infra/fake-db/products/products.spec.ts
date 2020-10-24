@@ -57,4 +57,10 @@ describe('FakeProductsDb', () => {
     const result = await sut.addMultiples(data)
     expect(result).toEqual(response)
   })
+  test('Should return an array of products when loadAll are called', async () => {
+    const { sut } = makeSut()
+    await FakeProductsDb.instance.addMultiples([{ name: 'CACHORRO', price: 100 }, { name: 'GATO', price: 50 }, { name: 'GALINHA', price: 25 }])
+    const result = await sut.loadAll()
+    expect(result).toEqual([{ name: 'CACHORRO', price: 100 }, { name: 'GATO', price: 50 }, { name: 'GALINHA', price: 25 }])
+  })
 })
