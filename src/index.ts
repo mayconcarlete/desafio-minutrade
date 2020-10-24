@@ -1,3 +1,4 @@
+import 'module-alias/register'
 import server from './main/config/app'
 
 const port = 3000 || process.env.SERVER_PORT
