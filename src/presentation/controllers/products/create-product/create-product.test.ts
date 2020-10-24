@@ -1,5 +1,6 @@
 import supertest from 'supertest'
 import app from '@main/config/app'
+import { FakeProductsDb } from '@infra/fake-db/products/products'
 
 describe('POST - Create a product', () => {
   test('Should return 400 if no name is provided', async () => {
@@ -27,6 +28,7 @@ describe('POST - Create a product', () => {
     expect(result.body).toEqual('price field is shorter than minimum')
   })
   test('Should return 400 if product already exists in DB', async () => {
+    await FakeProductsDb.instance.add({ name: 'CACHORRO', price: 100 })
     const result = await supertest(app).post('/api/v1/products').send({ name: 'CACHORRO', price: 100 })
     expect(result.body).toEqual('Invalid param: Product already exists')
   })

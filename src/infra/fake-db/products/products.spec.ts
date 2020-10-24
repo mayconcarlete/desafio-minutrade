@@ -9,10 +9,13 @@ type SutTypes = {
   sut: FakeProductsDb
 }
 const makeSut = (): SutTypes => {
-  const sut = new FakeProductsDb()
+  const sut = FakeProductsDb.instance
   return { sut }
 }
 describe('FakeProductsDb', () => {
+  beforeEach(() => {
+    FakeProductsDb.instance.products = []
+  })
   test('Should return undefined if product doenst exists in DB', async () => {
     const { sut } = makeSut()
     const result = await sut.loadByName('DOESNT_EXIST')
@@ -20,6 +23,7 @@ describe('FakeProductsDb', () => {
   })
   test('Should return a product if name exists in DB', async () => {
     const { sut } = makeSut()
+    await FakeProductsDb.instance.add({ name: 'CACHORRO', price: 100 })
     const result = await sut.loadByName('CACHORRO')
     expect(result).toEqual({ name: 'CACHORRO', price: 100 })
   })
@@ -30,6 +34,7 @@ describe('FakeProductsDb', () => {
   })
   test('Should return an array of products names when loadNames are called', async () => {
     const { sut } = makeSut()
+    await FakeProductsDb.instance.addMultiples([{ name: 'CACHORRO', price: 100 }, { name: 'GATO', price: 50 }, { name: 'GALINHA', price: 25 }])
     const result = await sut.loadNames()
     expect(result).toEqual(['CACHORRO', 'GATO', 'GALINHA'])
   })
@@ -40,12 +45,13 @@ describe('FakeProductsDb', () => {
   })
   test('Should return a product when deleteByName success', async () => {
     const { sut } = makeSut()
+    await FakeProductsDb.instance.add({ name: 'GALINHA', price: 25 })
     const result = await sut.deleteByName('GALINHA')
     expect(result).toEqual({ name: 'GALINHA', price: 25 })
-    expect(sut.products.length).toEqual(2)
   })
   test('Should return an array of single produts without duplicates', async () => {
     const { sut } = makeSut()
+    await FakeProductsDb.instance.addMultiples([{ name: 'CACHORRO', price: 100 }, { name: 'GATO', price: 50 }, { name: 'GALINHA', price: 25 }])
     const data = [{ name: 'CACHORRO', price: 100 }, { name: 'ANY_NAME', price: 50 }, { name: 'GALINHA', price: 25 }, { name: 'PAPAGAIO', price: 25 }]
     const response = [{ name: 'CACHORRO', price: 100 }, { name: 'GATO', price: 50 }, { name: 'GALINHA', price: 25 },{ name: 'ANY_NAME', price: 50 }, { name: 'PAPAGAIO', price: 25 }]
     const result = await sut.addMultiples(data)

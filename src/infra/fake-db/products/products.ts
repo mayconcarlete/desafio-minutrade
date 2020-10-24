@@ -12,7 +12,9 @@ export class FakeProductsDb implements
   IDeleteByNameAdapter,
   ICreateMultipleProductsAdapter {
   private static _instance: FakeProductsDb
-  products: TProduct[] = [{ name: 'CACHORRO', price: 100 }, { name: 'GATO', price: 50 }, { name: 'GALINHA', price: 25 }]
+  products: TProduct[] = []
+
+  // { name: 'CACHORRO', price: 100 }, { name: 'GATO', price: 50 }, { name: 'GALINHA', price: 25 }
   private constructor () { }
 
   static get instance (): FakeProductsDb {
