@@ -3,6 +3,7 @@ import { IDeleteByNameAdapter } from '@data/products/protocols/delete-product-by
 import { ILoadAllProducts } from '@data/products/protocols/load-all-products'
 import { ILoadProductsByNameAdapter } from '@data/products/protocols/load-all-products-by-name'
 import { TProduct } from '@domain/products/models/products'
+import { IUpdateProduct } from '@domain/products/usecases/update-product'
 import { ICreateProductAdapter } from 'src/data/products/protocols/create-product'
 import { ILoadProductByNameAdapter } from 'src/data/products/protocols/load-product-by-name'
 
@@ -12,7 +13,8 @@ export class FakeProductsDb implements
   ILoadProductsByNameAdapter,
   IDeleteByNameAdapter,
   ICreateMultipleProductsAdapter,
-  ILoadAllProducts {
+  ILoadAllProducts,
+  IUpdateProduct {
   private static _instance: FakeProductsDb
   products: TProduct[] = []
 
@@ -71,5 +73,14 @@ export class FakeProductsDb implements
 
   async loadAll (): Promise<TProduct[]|[]> {
     return new Promise(resolve => resolve(this.products))
+  }
+
+  async update (product: TProduct): Promise<TProduct| undefined> {
+    const index = this.products.findIndex(productArr => productArr.name === product.name)
+    if (index > -1) {
+      this.products[index].price = product.price
+      return new Promise(resolve => resolve(this.products[index]))
+    }
+    return new Promise(resolve => resolve(undefined))
   }
 }
