@@ -2,8 +2,8 @@ import { ICreateMultipleProductsAdapter } from '@data/products/protocols/create-
 import { IDeleteByNameAdapter } from '@data/products/protocols/delete-product-by-name'
 import { ILoadAllProducts } from '@data/products/protocols/load-all-products'
 import { ILoadProductsByNameAdapter } from '@data/products/protocols/load-all-products-by-name'
+import { IUpdateAdapter } from '@data/products/protocols/load-product'
 import { TProduct } from '@domain/products/models/products'
-import { IUpdateProduct } from '@domain/products/usecases/update-product'
 import { ICreateProductAdapter } from 'src/data/products/protocols/create-product'
 import { ILoadProductByNameAdapter } from 'src/data/products/protocols/load-product-by-name'
 
@@ -14,7 +14,7 @@ export class FakeProductsDb implements
   IDeleteByNameAdapter,
   ICreateMultipleProductsAdapter,
   ILoadAllProducts,
-  IUpdateProduct {
+  IUpdateAdapter {
   private static _instance: FakeProductsDb
   products: TProduct[] = []
 
@@ -28,7 +28,7 @@ export class FakeProductsDb implements
   }
 
   async loadByName (name: string): Promise<TProduct | undefined> {
-    const product = this.products.find((product, index) => product.name === name ? product : null)
+    const product = this.products.find((product) => product.name === name ? product : null)
     if (product) {
       return new Promise(resolve => resolve(product))
     }
@@ -75,7 +75,7 @@ export class FakeProductsDb implements
     return new Promise(resolve => resolve(this.products))
   }
 
-  async update (product: TProduct): Promise<TProduct| undefined> {
+  async updateProduct (product: TProduct): Promise<TProduct| undefined> {
     const index = this.products.findIndex(productArr => productArr.name === product.name)
     if (index > -1) {
       this.products[index].price = product.price
