@@ -13,11 +13,12 @@ export class UpdateProductController implements IController {
 
   async handle (req: THttpRequest): Promise<THttpResponse> {
     try {
-      const error = this.validators.validate(req.body)
+      const body = Object.assign({}, req.body, req.params)
+      const error = this.validators.validate(body)
       if (error) {
         return badRequest(error)
       }
-      const updatedProduct = await this.updateProductData.update(req.body)
+      const updatedProduct = await this.updateProductData.update(body)
       if (updatedProduct) {
         return ok(updatedProduct)
       }
