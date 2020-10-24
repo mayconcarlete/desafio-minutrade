@@ -9,6 +9,8 @@ Instruções:
 To do list:
 - (x) Rota para criar produtos.
 - (x) Rota para buscar produtos por nome.
+- (x) Rota para buscar todos os produtos.
+- (x) Rota para editar produtos por nome.
 - (x) Implementar a rota delete de forma correta.
 - (x) Implementar a rota de múltiplos cadastros.
 - (x) Melhorar código existente.
