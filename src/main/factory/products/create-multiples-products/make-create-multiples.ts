@@ -5,7 +5,7 @@ import { makeCreateMultipleValidator } from './make-create-multiples-validator'
 
 export const makeCreateMultipleProducts = (): CreateMultipleProductsController => {
   const validators = makeCreateMultipleValidator()
-  const fakeDb = new FakeProductsDb()
+  const fakeDb = FakeProductsDb.instance
   const createMultipleData = new CreateMultipleProducts(fakeDb)
   return new CreateMultipleProductsController(validators, createMultipleData)
 }

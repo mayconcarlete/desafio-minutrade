@@ -3,7 +3,7 @@ import { FakeProductsDb } from '@infra/fake-db/products/products'
 import { GetAllNamesController } from '@presentation/controllers/products/products-names-by-order/get-all-names-by-order'
 
 export const makeGetAllNames = (): GetAllNamesController => {
-  const loadNamesDbAdapter = new FakeProductsDb()
+  const loadNamesDbAdapter = FakeProductsDb.instance
   const getArrayNames = new GetAllNames(loadNamesDbAdapter)
   return new GetAllNamesController(getArrayNames)
 }

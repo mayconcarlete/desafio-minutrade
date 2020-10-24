@@ -11,13 +11,15 @@ export class FakeProductsDb implements
   ILoadProductsByNameAdapter,
   IDeleteByNameAdapter,
   ICreateMultipleProductsAdapter {
-  products: TProduct[]
-  constructor () {
-    this.products = [
-      { name: 'CACHORRO', price: 100 },
-      { name: 'GATO', price: 50 },
-      { name: 'GALINHA', price: 25 }
-    ]
+  private static _instance: FakeProductsDb
+  products: TProduct[] = [{ name: 'CACHORRO', price: 100 }, { name: 'GATO', price: 50 }, { name: 'GALINHA', price: 25 }]
+  private constructor () { }
+
+  static get instance (): FakeProductsDb {
+    if (!FakeProductsDb._instance) {
+      FakeProductsDb._instance = new FakeProductsDb()
+    }
+    return FakeProductsDb._instance
   }
 
   async loadByName (name: string): Promise<TProduct | undefined> {

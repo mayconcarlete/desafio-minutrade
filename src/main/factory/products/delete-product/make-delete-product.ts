@@ -5,7 +5,7 @@ import { makeDeleteValidator } from './make-delete-product-validator'
 
 export const makeDeleteProduct = (): DeleteByNameController => {
   const validators = makeDeleteValidator()
-  const deleteByNameAdapter = new FakeProductsDb()
+  const deleteByNameAdapter = FakeProductsDb.instance
   const deleteByNameData = new DeleteProduct(deleteByNameAdapter)
   return new DeleteByNameController(validators, deleteByNameData)
 }
