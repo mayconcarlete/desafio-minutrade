@@ -14,3 +14,4 @@ To do list:
 - (x) Implementar a rota delete de forma correta.
 - (x) Implementar a rota de múltiplos cadastros.
 - (x) Melhorar código existente.
+- ( ) Melhorar o meu própio código.
