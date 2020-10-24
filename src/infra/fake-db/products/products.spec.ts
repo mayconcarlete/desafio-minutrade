@@ -63,4 +63,16 @@ describe('FakeProductsDb', () => {
     const result = await sut.loadAll()
     expect(result).toEqual([{ name: 'CACHORRO', price: 100 }, { name: 'GATO', price: 50 }, { name: 'GALINHA', price: 25 }])
   })
+  test('Should return an updated array when update are called', async () => {
+    const { sut } = makeSut()
+    await FakeProductsDb.instance.addMultiples([{ name: 'CACHORRO', price: 100 }, { name: 'GATO', price: 50 }, { name: 'GALINHA', price: 25 }])
+    const result = await sut.update({ name: 'CACHORRO', price: 99 })
+    expect(result).toEqual({ name: 'CACHORRO', price: 99 })
+  })
+  test('Should return an undefined when update not found product', async () => {
+    const { sut } = makeSut()
+    await FakeProductsDb.instance.addMultiples([{ name: 'CACHORRO', price: 100 }, { name: 'GATO', price: 50 }, { name: 'GALINHA', price: 25 }])
+    const result = await sut.update({ name: 'NOT_EXIST', price: 99 })
+    expect(result).toBeFalsy()
+  })
 })
