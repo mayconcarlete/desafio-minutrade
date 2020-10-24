@@ -1,7 +1,7 @@
 import { IUpdateProduct } from '@domain/products/usecases/update-product'
 import { THttpRequest, THttpResponse } from '@presentation/models'
 import { IController, IValidator } from '@presentation/protocols'
-import { badRequest, ok, serverError } from '@presentation/utils/http-responses'
+import { badRequest, notFound, ok, serverError } from '@presentation/utils/http-responses'
 
 export class UpdateProductController implements IController {
   private readonly validators: IValidator
@@ -22,7 +22,7 @@ export class UpdateProductController implements IController {
       if (updatedProduct) {
         return ok(updatedProduct)
       }
-      return badRequest(new Error('Its not possible update product'))
+      return notFound(new Error('Its not possible update product'))
     } catch (e) {
       return serverError(e)
     }
