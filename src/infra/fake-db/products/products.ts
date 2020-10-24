@@ -1,5 +1,6 @@
 import { ICreateMultipleProductsAdapter } from '@data/products/protocols/create-multiple-products'
 import { IDeleteByNameAdapter } from '@data/products/protocols/delete-product-by-name'
+import { ILoadAllProducts } from '@data/products/protocols/load-all-products'
 import { ILoadProductsByNameAdapter } from '@data/products/protocols/load-all-products-by-name'
 import { TProduct } from '@domain/products/models/products'
 import { ICreateProductAdapter } from 'src/data/products/protocols/create-product'
@@ -10,11 +11,11 @@ export class FakeProductsDb implements
   ICreateProductAdapter,
   ILoadProductsByNameAdapter,
   IDeleteByNameAdapter,
-  ICreateMultipleProductsAdapter {
+  ICreateMultipleProductsAdapter,
+  ILoadAllProducts {
   private static _instance: FakeProductsDb
   products: TProduct[] = []
 
-  // { name: 'CACHORRO', price: 100 }, { name: 'GATO', price: 50 }, { name: 'GALINHA', price: 25 }
   private constructor () { }
 
   static get instance (): FakeProductsDb {
@@ -65,6 +66,10 @@ export class FakeProductsDb implements
         this.products.push(product)
       }
     }
+    return new Promise(resolve => resolve(this.products))
+  }
+
+  async loadAll (): Promise<TProduct[]|[]> {
     return new Promise(resolve => resolve(this.products))
   }
 }

@@ -7,6 +7,7 @@ import { makeCreateProduct } from '../factory/products/create-product/make-creat
 
 export default (app: Router): void => {
   app.post('/api/v1/products', adapterRoute(makeCreateProduct()))
+  // getall
   app.post('/api/v1/multiple-products', adapterRoute(makeCreateMultipleProducts()))
   app.get('/api/v1/productsnames', adapterRoute(makeGetAllNames()))
   app.delete('/api/v1/products/:name', adapterRoute(makeDeleteProduct()))
