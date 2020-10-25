@@ -15,3 +15,5 @@ To do list:
 - (x) Implementar a rota de múltiplos cadastros.
 - (x) Melhorar código existente.
 - ( ) Melhorar o meu própio código.
+- ( ) Implementar um template para os controllers para evitar repetição de código.
+- ( ) Adicionar suporte ao MongoDb.
